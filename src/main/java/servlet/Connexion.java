@@ -26,8 +26,8 @@ public class Connexion extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	HttpSession session = req.getSession();
 		if(session.getAttribute("utilisateur") == null){
-			List<Utilisateur> utilisateurs = UserDao.lister();
-			req.setAttribute("utilisateur", utilisateurs);
+			//List<Utilisateur> utilisateurs = UserDao.lister();
+			//req.setAttribute("utilisateurs", utilisateurs);
 			getServletContext().getRequestDispatcher(VUE_CONNEXION_UTILISATEUR).forward(req, resp);
 		} else {
 			resp.sendRedirect("list");
@@ -42,8 +42,6 @@ public class Connexion extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(utilisateur != null) {
 			session.setAttribute("utilisateur", new Utilisateur(utilisateur.getId(), utilisateur.getNom(), utilisateur.getPrenom(), utilisateur.getLogin(), utilisateur.getPassword()));
-			List<Utilisateur> utilisateurs = UserDao.lister();
-			request.setAttribute("utilisateur", utilisateurs);
 			response.sendRedirect("list");
 		}
 		else {

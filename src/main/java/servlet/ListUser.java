@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Utilisateur;
 import dao.UserDao;
-import dao.UtilisateurDao;
 
 /**
  * Servlet implementation class ListUser
@@ -22,7 +22,8 @@ public class ListUser extends HttpServlet {
 	private static final String VUE_LIST_UTILISATEUR = "/WEB-INF/listerUtilisateur.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("utilisateurs", UserDao.lister());
+		List<Utilisateur> utilisateurs = UserDao.lister();
+		request.setAttribute("utilisateurs", utilisateurs);
 		getServletContext().getRequestDispatcher(VUE_LIST_UTILISATEUR).forward(request, response);
 	}
 

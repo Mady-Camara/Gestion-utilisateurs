@@ -5,7 +5,7 @@
 	<%@include file="header.jsp"%>
 	<h1>Liste des utilisateurs :</h1>
 	<c:choose>
-		<c:when test="${empty utilisateurs }">
+		<c:when test="${empty utilisateurs}">
 			<h2>La liste des utilisateurs est vide</h2>
 		</c:when>
 		<c:otherwise>
@@ -13,7 +13,7 @@
 				<tr>
 					<th>Id</th><th>Prenom</th><th>Nom</th><th>Login</th><th>Password</th><th>Actions</th>
 				</tr>
-				<c:forEach var="utilisateur" items="${utilisateurs }">
+				<c:forEach var="utilisateur" items="${utilisateurs}">
 						<tr>
 							<td><c:out value="${utilisateur.id}"/></td>
 							<td><c:out value="${utilisateur.prenom}"/></td>

@@ -14,7 +14,7 @@ public class UserDao {
 	private static final String INSERT_USER = "INSERT INTO Utilisateur (nom, prenom, login, password) VALUES (?, ?, ?, ?);";
 	private static final String DELETE_USER = "DELETE FROM Utilisateur WHERE id = ?;";
 	private static final String UPDATE_USER = "UPDATE Utilisateur set nom = ?, prenom = ?, login = ?, password = ? where id = ?;";
-	private static final String ALL_USER = "SELECT * Utilisateur;";
+	private static final String ALL_USER = "SELECT id, nom, prenom, login, password FROM Utilisateur;";
 	private static final String GET_USER = "SELECT id, nom, prenom, login, password FROM Utilisateur WHERE id =?";
 	private static final String GET_USER_AUTH = "SELECT id, nom, prenom, login, password FROM Utilisateur WHERE login = ? AND password = ?";
 	
@@ -56,10 +56,8 @@ public class UserDao {
 			Connection conn = connexion();
 			PreparedStatement preparedSelectStatement = conn.prepareStatement(ALL_USER);
 			ResultSet rs = preparedSelectStatement.executeQuery();
-			System.out.println("============================ Liste ==========================");
 			while (rs.next()) {
                 utilisateurs.add(new Utilisateur(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("login"), rs.getString("password")));
-                System.out.println(rs.getString("nom")+" "+rs.getString("prenom"));
             }
 		}
 		catch(Exception e) {
@@ -135,7 +133,7 @@ public class UserDao {
 				try {
 					Connection conn = connexion();
 					PreparedStatement preparedDeletetStatement = conn.prepareStatement(DELETE_USER);
-					preparedDeletetStatement.setLong(5, id);
+					preparedDeletetStatement.setLong(1, id);
 					preparedDeletetStatement.executeUpdate();
 				}
 				catch(Exception e) {
