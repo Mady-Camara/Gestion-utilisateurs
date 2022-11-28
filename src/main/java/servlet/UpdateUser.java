@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Utilisateur;
 import dao.UserDao;
-import dao.UtilisateurDao;
+import metier.UserMetier;
 
 /**
  * Servlet implementation class UpdateUser
@@ -25,10 +27,16 @@ public class UpdateUser extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("login") != null || request.getParameter("prenom") != null || request.getParameter("nom") != null || request.getParameter("password") != null) {
+		
+		List<String> messagesErreur = UserMetier.validation(request);
+		if(messagesErreur.isEmpty()) {
 			UserDao.modifier(new Utilisateur(Long.parseLong(request.getParameter("id")) ,request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("login"), request.getParameter("password")));
+			response.sendRedirect("list");
 		}
-		response.sendRedirect("list");
+		else {
+			request.setAttribute("messages", messagesErreur);
+			getServletContext().getRequestDispatcher("/WEB-INF/modifierUtilisateur.jsp").forward(request, response);
+		}
 	}
 
 }

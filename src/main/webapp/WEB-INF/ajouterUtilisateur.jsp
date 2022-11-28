@@ -16,6 +16,8 @@
 	<input class="btn btn-success" type="submit" value="Valider">
 	</div>
 </form>
-<!--  <h2>if(request.getAttribute("message") != null) out.print(request.getAttribute("message")); </h2> -->
+	<c:forEach var="message" items="${messages}">
+		<p style="color: red">${message}</p>
+	</c:forEach>
 </body>
 </html>
