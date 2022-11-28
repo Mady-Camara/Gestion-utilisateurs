@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.UserDao;
 
 /**
- * Servlet implementation class DeleteUser
+ * @Author Mady-Camara
  */
 @WebServlet("/delete")
 public class DeleteUser extends HttpServlet {
